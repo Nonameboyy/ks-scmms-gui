@@ -1,0 +1,14 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Encoding=UTF-8
+Name=SCMMS
+Name[zh_CN]=集中运维管理
+Comment=Kylinsec SCMMS GUI
+Comment[zh_CN]=麒麟信安集中运维管控系统
+Exec=/usr/bin/ks-scmms-gui
+Icon=ks-scmms-gui
+Terminal=false
+Type=Application
+Categories=Application;System;Qt;
+StartupNotify=true
+

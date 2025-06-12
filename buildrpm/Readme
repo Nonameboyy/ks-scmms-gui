@@ -1,0 +1,33 @@
+
+libcom_err.so.2  libgssapi_krb5.so.2  libkeyutils.so.1  libkrb5support.so.0  libreadline.so.6  libssl.so.10   libz.so.1 
+libcrypto.so.10  libk5crypto.so.3     libkrb5.so.3      libnsl.so.1          libselinux.so.1   libtinfo.so.5  libwrap.so.0 
+以上这些动态库是socat用到的依赖，加入到了gui.tar.gz，打包的时候会拷贝到/usr/local/scmms/gui/lib64，libz.so.1删除掉，不然有冲突
+libutil.so.1也要删除掉，这个是glibc的库
+
+script to build rpm
+first make build env ready:
+
+For KY3.2-8:
+[epel]
+name=Kylin-$releasever - EPEL
+gpgcheck=0
+baseurl=http://192.168.120.10/kojifiles/repos/KY3.2-EPEL-build/latest/x86_64/
+
+1.yum install mock
+
+2.sed -i 's/%(uid)s/99/g' /usr/lib/python2.6/site-packages/mockbuild/util.py
+
+For KY3.3-6:
+
+[epel]
+name=Epel
+gpgcheck=0
+enabled=1
+baseurl=http://192.168.120.17/kojifiles/repos/KY3.3-EPEL-build/latest/x86_64/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kylin-release
+exclude=mysql-community*
+
+1 yum install http://192.168.120.17/kojifiles/packages/mock/1.4.2/1.ky3/noarch/mock-1.4.2-1.ky3.noarch.rpm
+
+2 sed 's/%(uid)s/99/g' /usr/lib/python2.7/site-packages/mockbuild/util.py -i
+

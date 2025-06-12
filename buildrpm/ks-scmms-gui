@@ -1,0 +1,24 @@
+#!/bin/bash
+# @file kylinsec-scmms-gui.sh
+# @brief 各个系统运行方式
+# @author zhenggongping <zhenggongping@kylinos.com.cn>
+# @copyright (c) 2020~2022 KylinSec Co., Ltd. All rights reserved.
+
+
+OSVER=$(cat /etc/.kyinfo | grep milestone | awk -F= '{print $2}' | tr -d ' ')
+export SCMMS_INSTALL_DIR=/usr/local/scmms/gui
+SCMMS_LIBRARY_PATH=${SCMMS_INSTALL_DIR}/lib64:${SCMMS_INSTALL_DIR}/5.7/gcc_64/lib
+[[ -z $LD_LIBRARY_PATH ]] && export LD_LIBRARY_PATH=${SCMMS_LIBRARY_PATH} || export LD_LIBRARY_PATH=${SCMMS_LIBRARY_PATH}:$LD_LIBRARY_PATH
+# qtwebengine 查找icudtl.dat是在当前目录下的
+cd ${SCMMS_INSTALL_DIR}/bin
+SCMMS_BIN=${SCMMS_INSTALL_DIR}/bin/ks-scmms-gui
+
+if [[ ${OSVER:0:3} == "3.2" ]];then
+    exec ${SCMMS_BIN} --allow-running-insecure-content --no-sandbox > /dev/null 2>&1
+elif [[ ${OSVER:0:3} == "3.3" ]];then
+    export QT_IM_MODULE=fcitx
+    exec ${SCMMS_BIN} > /dev/null 2>&1
+else
+    export QT_IM_MODULE=fcitx
+    exec ${SCMMS_BIN} --no-sandbox > /dev/null  2>&1
+fi

@@ -1,0 +1,8 @@
+buildrpm/_buildres/
+buildrpm/_buildtmp/
+buildrun/ks-run
+buildrun/ks-scmms-gui-*.run
+buildrun/ks-scmms-gui-*.readme
+buildrun/ks-scmms-gui-*.md5.txt
+buildrun/ks-scmms-gui-*.md5sum
+.vscode/
